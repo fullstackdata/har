@@ -1,15 +1,18 @@
 require(plyr);
+args <- commandArgs();
+
+inputDir <- args[1];
 
 # Step 1 - Read date frames assuming "UCI HAR Dataset" folder is in the working directory
 
-xTest <- read.table("UCI HAR Dataset/test/X_test.txt", stringsAsFactors=FALSE);
-yTest <- read.table("UCI HAR Dataset/test/Y_test.txt", stringsAsFactors=FALSE);
-xTrain <- read.table("UCI HAR Dataset/train/X_train.txt", stringsAsFactors=FALSE);
-yTrain <- read.table("UCI HAR Dataset/train/Y_train.txt", stringsAsFactors=FALSE);
-subjectTest <- read.table("UCI HAR Dataset/test/subject_test.txt", stringsAsFactors=FALSE);
-subjectTrain <- read.table("UCI HAR Dataset/train/subject_train.txt", stringsAsFactors=FALSE);
-features <- read.table("UCI HAR Dataset/features.txt", stringsAsFactors=FALSE);
-activityLabels <- read.table("UCI HAR Dataset/activity_labels.txt");
+xTest <- read.table(paste(inputDir,"/test/X_test.txt", sep=""), stringsAsFactors=FALSE);
+yTest <- read.table(paste(inputDir,"/test/Y_test.txt", sep=""), stringsAsFactors=FALSE);
+xTrain <- read.table(paste(inputDir,"/train/X_train.txt", sep=""), stringsAsFactors=FALSE);
+yTrain <- read.table(paste(inputDir,"/train/Y_train.txt", sep=""), stringsAsFactors=FALSE);
+subjectTest <- read.table(paste(inputDir,"/test/subject_test.txt", sep=""), stringsAsFactors=FALSE);
+subjectTrain <- read.table(paste(inputDir,"/train/subject_train.txt", sep=""), stringsAsFactors=FALSE);
+features <- read.table(paste(inputDir,"/features.txt", sep=""), stringsAsFactors=FALSE);
+activityLabels <- read.table(paste(inputDir,"/activity_labels.txt", sep=""));
 
 # Step 2 - Merge data sets
 
@@ -43,7 +46,6 @@ final <- join(Fmean, activityLabels);
 
 #Step 6 - Write the output to a text file called tidy.txt
 write.table(final, file="tidy.txt", row.names=FALSE, quote=FALSE, col.names=names(final));
-
 
 
 
